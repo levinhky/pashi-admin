@@ -17,11 +17,9 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="logo-details">
         <i className="bx bx-code-alt"></i>
-        <span className="logo_name">
-          <Link className="logo_name" to="/">
-            Pashi
-          </Link>
-        </span>
+        <Link className="logo_name" to="/">
+          Pashi
+        </Link>
       </div>
       <ul className="nav-links">
         <li>
