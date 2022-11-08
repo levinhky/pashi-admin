@@ -53,7 +53,6 @@ const Product = () => {
                   <th>Name</th>
                   <th>Price</th>
                   <th>Quantity</th>
-                  <th>Size</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -62,7 +61,7 @@ const Product = () => {
                   productList.map((p, i) => (
                     <tr key={p._id}>
                       <td>{i + 1}</td>
-                      <td className="w-[120px] text-center">
+                      <td>
                         <img
                           style={{ width: "100px", height: "100px" }}
                           src={p.thumbnails[0].thumbnail}
@@ -71,8 +70,8 @@ const Product = () => {
                       </td>
                       <td>{p.name}</td>
                       <td>{p.price}</td>
+                      <td>{p.size}</td>
                       <td>{p.quantity}</td>
-                      <td>{p.sizes.size}</td>
                       <td>
                         <Button variant="info">
                           <Link

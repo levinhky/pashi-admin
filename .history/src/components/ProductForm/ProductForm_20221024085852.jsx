@@ -45,12 +45,12 @@ const ProductForm = () => {
         setPCategory(info.categoryId?._id);
         setPThumbnails(info.thumbnails);
         setPVariants(info?.sizes);
-        setPSizeS(info?.sizes[0]?.size);
-        setPSizeM(info?.sizes[1]?.size);
-        setPSizeL(info?.sizes[2]?.size);
-        setPSizeSQty(info?.sizes[0]?.quantity);
-        setPSizeMQty(info?.sizes[1]?.quantity);
-        setPSizeLQty(info?.sizes[2]?.quantity);
+        setPSizeS(info?.sizes[0].size);
+        setPSizeM(info?.sizes[1].size);
+        setPSizeL(info?.sizes[2].size);
+        setPSizeSQty(info?.sizes[0].quantity);
+        setPSizeMQty(info?.sizes[1].quantity);
+        setPSizeLQty(info?.sizes[2].quantity);
         setIsLoading(false);
       });
     };
@@ -99,8 +99,6 @@ const ProductForm = () => {
             case "running":
               console.log("Upload is running");
               break;
-            default:
-              console.log("Error");
           }
         },
         (error) => {
@@ -116,8 +114,6 @@ const ProductForm = () => {
                 "Unknown error occurred, inspect error.serverResponse"
               );
               break;
-            default:
-              console.log("Error");
           }
         },
         () => {
@@ -132,7 +128,7 @@ const ProductForm = () => {
       );
     }
   };
-  console.log(pVariants.sizes);
+  console.log(pVariants);
   const handleSave = async () => {
     const saveData = {
       name: pName,
@@ -156,7 +152,7 @@ const ProductForm = () => {
     <Container>
       <Row>
         <Col>
-          <Form className="p-3 p-4 mb-5 bg-white border rounded shadow-sm">
+          <Form className="border p-4 shadow-sm p-3 mb-5 bg-white rounded">
             <h3 className="mb-3">
               {!productId ? "New product" : "Edit product"}
             </h3>
@@ -233,7 +229,7 @@ const ProductForm = () => {
                   type={"checkbox"}
                   id={"S"}
                   label={"S"}
-                  value="S"
+                  value={"S"}
                   defaultChecked={pVariants[0]?.size}
                   onChange={(e) => setPSizeS(e.target.value)}
                 />
@@ -252,12 +248,12 @@ const ProductForm = () => {
                   Update
                 </Button>
               </div>
-              <div className="mt-3 d-flex align-items-center">
+              <div className="d-flex align-items-center mt-3">
                 <Form.Check
                   type={"checkbox"}
                   id={"M"}
                   label={"M"}
-                  value="M"
+                  value={"M"}
                   defaultChecked={pVariants[1]?.size}
                   onChange={(e) => setPSizeM(e.target.value)}
                 />
@@ -276,12 +272,12 @@ const ProductForm = () => {
                   Update
                 </Button>
               </div>
-              <div className="mt-3 d-flex align-items-center">
+              <div className="d-flex align-items-center mt-3">
                 <Form.Check
                   type={"checkbox"}
                   id={"L"}
                   label={"L"}
-                  value="L"
+                  value={"L"}
                   defaultChecked={pVariants[2]?.size}
                   onChange={(e) => setPSizeL(e.target.value)}
                 />

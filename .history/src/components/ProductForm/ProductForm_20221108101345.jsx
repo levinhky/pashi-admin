@@ -45,12 +45,12 @@ const ProductForm = () => {
         setPCategory(info.categoryId?._id);
         setPThumbnails(info.thumbnails);
         setPVariants(info?.sizes);
-        setPSizeS(info?.sizes[0]?.size);
-        setPSizeM(info?.sizes[1]?.size);
-        setPSizeL(info?.sizes[2]?.size);
-        setPSizeSQty(info?.sizes[0]?.quantity);
-        setPSizeMQty(info?.sizes[1]?.quantity);
-        setPSizeLQty(info?.sizes[2]?.quantity);
+        setPSizeS(info?.sizes[0].size);
+        setPSizeM(info?.sizes[1].size);
+        setPSizeL(info?.sizes[2].size);
+        setPSizeSQty(info?.sizes[0].quantity);
+        setPSizeMQty(info?.sizes[1].quantity);
+        setPSizeLQty(info?.sizes[2].quantity);
         setIsLoading(false);
       });
     };
@@ -132,7 +132,7 @@ const ProductForm = () => {
       );
     }
   };
-  console.log(pVariants.sizes);
+  console.log(sizes);
   const handleSave = async () => {
     const saveData = {
       name: pName,
@@ -233,7 +233,7 @@ const ProductForm = () => {
                   type={"checkbox"}
                   id={"S"}
                   label={"S"}
-                  value="S"
+                  value={"S"}
                   defaultChecked={pVariants[0]?.size}
                   onChange={(e) => setPSizeS(e.target.value)}
                 />
@@ -257,7 +257,7 @@ const ProductForm = () => {
                   type={"checkbox"}
                   id={"M"}
                   label={"M"}
-                  value="M"
+                  value={"M"}
                   defaultChecked={pVariants[1]?.size}
                   onChange={(e) => setPSizeM(e.target.value)}
                 />
@@ -281,7 +281,7 @@ const ProductForm = () => {
                   type={"checkbox"}
                   id={"L"}
                   label={"L"}
-                  value="L"
+                  value={"L"}
                   defaultChecked={pVariants[2]?.size}
                   onChange={(e) => setPSizeL(e.target.value)}
                 />

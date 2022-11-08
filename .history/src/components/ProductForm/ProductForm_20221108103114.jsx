@@ -48,9 +48,9 @@ const ProductForm = () => {
         setPSizeS(info?.sizes[0]?.size);
         setPSizeM(info?.sizes[1]?.size);
         setPSizeL(info?.sizes[2]?.size);
-        setPSizeSQty(info?.sizes[0]?.quantity);
-        setPSizeMQty(info?.sizes[1]?.quantity);
-        setPSizeLQty(info?.sizes[2]?.quantity);
+        setPSizeSQty(info?.sizes[0].quantity);
+        setPSizeMQty(info?.sizes[1].quantity);
+        setPSizeLQty(info?.sizes[2].quantity);
         setIsLoading(false);
       });
     };

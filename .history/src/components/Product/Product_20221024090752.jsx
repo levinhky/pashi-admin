@@ -62,17 +62,18 @@ const Product = () => {
                   productList.map((p, i) => (
                     <tr key={p._id}>
                       <td>{i + 1}</td>
-                      <td className="w-[120px] text-center">
+                      <td className="w-[120px]">
                         <img
                           style={{ width: "100px", height: "100px" }}
                           src={p.thumbnails[0].thumbnail}
                           alt={p.name}
+                          className="items-center flex p-auto"
                         />
                       </td>
                       <td>{p.name}</td>
                       <td>{p.price}</td>
                       <td>{p.quantity}</td>
-                      <td>{p.sizes.size}</td>
+                      <td>{p.size}</td>
                       <td>
                         <Button variant="info">
                           <Link

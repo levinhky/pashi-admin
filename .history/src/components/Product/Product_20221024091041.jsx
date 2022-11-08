@@ -72,7 +72,7 @@ const Product = () => {
                       <td>{p.name}</td>
                       <td>{p.price}</td>
                       <td>{p.quantity}</td>
-                      <td>{p.sizes.size}</td>
+                      <td>{p.size}</td>
                       <td>
                         <Button variant="info">
                           <Link
