@@ -1,4 +1,3 @@
-import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -7,12 +6,15 @@ import axiosClient from "../../configs/axios";
 import { handleEdit, handleGetOne, handlePost } from "../../configs/functions";
 import { useNavigate, useParams } from "react-router-dom";
 import { toastSuccess, toastError, toastWarning } from "../../configs/toasts";
+import { useForm, useFormContext } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const schema = yup.object({
   name: yup.string().required("Please enter product name"),
-  price: yup.number().required("Please enter product price"),
+  price: yup
+    .number("this must be a number")
+    .required("Please enter product price"),
   quantity: yup.number().required("Please enter quantity products"),
   category: yup
     .string()
@@ -155,7 +157,6 @@ const ProductForm = () => {
   };
   // console.log(pVariants.sizes);
   const onSubmitHandler = async () => {
-    if (!isValid) return;
     const saveData = {
       name: pName,
       price: pPrice,
@@ -192,7 +193,6 @@ const ProductForm = () => {
               <Form.Control
                 type="text"
                 name="name"
-                control={control}
                 defaultValue={productInfo.name || ""}
                 placeholder="Enter product name"
                 onChange={(e) => setPName(e.target.value)}
@@ -206,7 +206,7 @@ const ProductForm = () => {
             <Form.Group className="mb-3">
               <Form.Label>Price</Form.Label>
               <Form.Control
-                type="string"
+                type="text"
                 name="price"
                 defaultValue={productInfo.price || ""}
                 placeholder="Enter product price"

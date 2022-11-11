@@ -192,7 +192,6 @@ const ProductForm = () => {
               <Form.Control
                 type="text"
                 name="name"
-                control={control}
                 defaultValue={productInfo.name || ""}
                 placeholder="Enter product name"
                 onChange={(e) => setPName(e.target.value)}

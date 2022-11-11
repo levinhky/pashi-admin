@@ -1,4 +1,3 @@
-import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -7,6 +6,7 @@ import axiosClient from "../../configs/axios";
 import { handleEdit, handleGetOne, handlePost } from "../../configs/functions";
 import { useNavigate, useParams } from "react-router-dom";
 import { toastSuccess, toastError, toastWarning } from "../../configs/toasts";
+import { useForm, useFormContext } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
@@ -192,7 +192,6 @@ const ProductForm = () => {
               <Form.Control
                 type="text"
                 name="name"
-                control={control}
                 defaultValue={productInfo.name || ""}
                 placeholder="Enter product name"
                 onChange={(e) => setPName(e.target.value)}

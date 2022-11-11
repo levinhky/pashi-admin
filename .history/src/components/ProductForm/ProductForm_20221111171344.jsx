@@ -29,6 +29,8 @@ const ProductForm = () => {
     control,
   } = useForm({ resolver: yupResolver(schema), mode: "onChange" });
 
+  console.log(errors.name);
+
   const [pName, setPName] = useState("");
   const [pPrice, setPPrice] = useState("");
   const [pQty, setPQty] = useState("");

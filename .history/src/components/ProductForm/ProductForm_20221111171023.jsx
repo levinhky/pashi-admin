@@ -29,6 +29,8 @@ const ProductForm = () => {
     control,
   } = useForm({ resolver: yupResolver(schema), mode: "onChange" });
 
+  console.log(errors);
+
   const [pName, setPName] = useState("");
   const [pPrice, setPPrice] = useState("");
   const [pQty, setPQty] = useState("");
@@ -192,7 +194,6 @@ const ProductForm = () => {
               <Form.Control
                 type="text"
                 name="name"
-                control={control}
                 defaultValue={productInfo.name || ""}
                 placeholder="Enter product name"
                 onChange={(e) => setPName(e.target.value)}

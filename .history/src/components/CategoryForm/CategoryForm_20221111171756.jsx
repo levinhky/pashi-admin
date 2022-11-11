@@ -6,16 +6,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 
-const schema = yup.object({
-  name: yup.string().required("Please enter category name"),
-});
+const schema = yup.object({});
 
 const CategoryForm = () => {
   const {
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isValid, isSubmitting, isSubmitSuccessful },
   } = useForm({ resolver: yupResolver(schema), mode: "onChange" });
-
   const [catName, setCatName] = useState("");
   const navigate = useNavigate();
 
@@ -48,21 +45,9 @@ const CategoryForm = () => {
                 </p>
               )}
             </Form.Group>
-            <Button variant="primary" type="none">
+            <Button variant="primary" type="submit">
               Save
             </Button>
-            {/* <button
-              className={`w-full p-4 bg-blue-400 text-white rounded-lg mt-5 font-semibold ${
-                isSubmitting ? "opacity-50" : ""
-              }`}
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? (
-                <div className="w-5 h-5 mx-auto border-2 border-t-2 border-white rounded-full border-t-transparent animate-spin"></div>
-              ) : (
-                "Submit"
-              )}
-            </button> */}
           </Form>
         </Col>
       </Row>

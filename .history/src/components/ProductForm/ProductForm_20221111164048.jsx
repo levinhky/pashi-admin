@@ -1,4 +1,3 @@
-import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -7,18 +6,18 @@ import axiosClient from "../../configs/axios";
 import { handleEdit, handleGetOne, handlePost } from "../../configs/functions";
 import { useNavigate, useParams } from "react-router-dom";
 import { toastSuccess, toastError, toastWarning } from "../../configs/toasts";
+import { useForm, useFormContext } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const schema = yup.object({
   name: yup.string().required("Please enter product name"),
-  price: yup.number().required("Please enter product price"),
+  price: yup.string().required("Please enter product name"),
   quantity: yup.number().required("Please enter quantity products"),
   category: yup
     .string()
-    .required("Please choose category product")
-    .oneOf(["top", "dress"], "You can only select top or dress"),
-  image: yup.string().required("Please choose file image product"),
+    .required("Please enter category product")
+    .oneOf(["top", "dress"], "You can only select male or female"),
 });
 
 const ProductForm = () => {
@@ -155,7 +154,6 @@ const ProductForm = () => {
   };
   // console.log(pVariants.sizes);
   const onSubmitHandler = async () => {
-    if (!isValid) return;
     const saveData = {
       name: pName,
       price: pPrice,
@@ -192,7 +190,6 @@ const ProductForm = () => {
               <Form.Control
                 type="text"
                 name="name"
-                control={control}
                 defaultValue={productInfo.name || ""}
                 placeholder="Enter product name"
                 onChange={(e) => setPName(e.target.value)}
@@ -206,17 +203,12 @@ const ProductForm = () => {
             <Form.Group className="mb-3">
               <Form.Label>Price</Form.Label>
               <Form.Control
-                type="string"
+                type="text"
                 name="price"
                 defaultValue={productInfo.price || ""}
                 placeholder="Enter product price"
                 onChange={(e) => setPPrice(e.target.value)}
               />
-              {errors.price && (
-                <p style={{ color: "red", margin: "10px 0" }}>
-                  {errors.price.message}
-                </p>
-              )}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Quantity</Form.Label>
@@ -227,11 +219,6 @@ const ProductForm = () => {
                 placeholder="Enter product quantity"
                 onChange={(e) => setPQty(e.target.value)}
               />
-              {errors.quantity && (
-                <p style={{ color: "red", margin: "10px 0" }}>
-                  {errors.quantity.message}
-                </p>
-              )}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Category</Form.Label>
@@ -249,11 +236,6 @@ const ProductForm = () => {
                     </option>
                   ))}
               </Form.Select>
-              {errors.category && (
-                <p style={{ color: "red", margin: "10px 0" }}>
-                  {errors.category.message}
-                </p>
-              )}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Thumbnail</Form.Label>
@@ -262,7 +244,6 @@ const ProductForm = () => {
                 placeholder="Enter product price"
                 multiple
                 onChange={(e) => handleChangeImage(e)}
-                name="image"
               />
               {pThumbnails.length > 0 &&
                 pThumbnails.map((p, index) => (
@@ -277,12 +258,7 @@ const ProductForm = () => {
                     alt=""
                   />
                 ))}
-              {isSubmitting && <div className="img-loading-spinner"></div>}
-              {errors.image && (
-                <p style={{ color: "red", margin: "10px 0" }}>
-                  {errors.image.message}
-                </p>
-              )}
+              {!isLoading && <div className="img-loading-spinner"></div>}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Sizes</Form.Label>
