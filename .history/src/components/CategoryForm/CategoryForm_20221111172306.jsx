@@ -13,7 +13,7 @@ const schema = yup.object({
 const CategoryForm = () => {
   const {
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({ resolver: yupResolver(schema), mode: "onChange" });
 
   const [catName, setCatName] = useState("");
@@ -48,10 +48,10 @@ const CategoryForm = () => {
                 </p>
               )}
             </Form.Group>
-            <Button variant="primary" type="none">
+            {/* <Button variant="primary" type="none">
               Save
-            </Button>
-            {/* <button
+            </Button> */}
+            <button
               className={`w-full p-4 bg-blue-400 text-white rounded-lg mt-5 font-semibold ${
                 isSubmitting ? "opacity-50" : ""
               }`}
@@ -62,7 +62,7 @@ const CategoryForm = () => {
               ) : (
                 "Submit"
               )}
-            </button> */}
+            </button>
           </Form>
         </Col>
       </Row>
