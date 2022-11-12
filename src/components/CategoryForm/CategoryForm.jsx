@@ -1,7 +1,7 @@
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { useState } from "react";
-import { handlePost } from "../../configs/functions";
-import { useNavigate } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {handleEdit, handleGetOne, handlePost} from "../../configs/functions";
+import {useNavigate, useParams} from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -18,11 +18,25 @@ const CategoryForm = () => {
 
   const [catName, setCatName] = useState("");
   const navigate = useNavigate();
+  const {categoryId} = useParams();
+
+  useEffect(() => {
+    const getCategory = async () => {
+      handleGetOne("/api/v2/categories",categoryId).then((category) => {
+        setCatName(category?.categoryName)
+      })
+    }
+    if (categoryId) getCategory();
+  },[categoryId])
 
   const handleSave = async () => {
-    await handlePost("/api/v2/categories", { categoryName: catName }).then(
-      (res) => setTimeout(() => navigate("/categories"), 1500)
-    );
+    !categoryId ?
+        await handlePost("/api/v2/categories", { categoryName: catName }).then(
+            (res) => setTimeout(() => navigate("/categories"), 1500)
+        ) :
+        await handleEdit("/api/v2/categories/update", categoryId, { categoryName: catName }).then(
+            (res) => setTimeout(() => navigate("/categories"), 1500)
+        );
   };
 
   return (
@@ -33,13 +47,16 @@ const CategoryForm = () => {
             className="p-4 mb-5 bg-white border rounded shadow-sm"
             onSubmit={handleSubmit(handleSave)}
           >
-            <h3 className="mb-3">Add category</h3>
+            <h3 className="mb-3">
+              {!categoryId ? 'Add category' : 'Edit category'}
+            </h3>
             <Form.Group className="mb-3">
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
                 name="name"
                 placeholder="Enter category name"
+                defaultValue={catName || ""}
                 onChange={(e) => setCatName(e.target.value)}
               />
               {errors.name && (

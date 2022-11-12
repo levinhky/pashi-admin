@@ -13,6 +13,7 @@ const routes = [
     { path:'/products/edit/:productId', element: <ProductForm />, layout:<ProductForm /> },
     { path:'/categories', element: <Category />, layout:<Category /> },
     { path:'/categories/add', element: <CategoryForm />, layout:<CategoryForm /> },
+    { path:'/categories/edit/:categoryId', element: <CategoryForm />, layout:<CategoryForm /> },
     { path:'/comments', element: <Comment />, layout:<Comment /> },
 ];
 

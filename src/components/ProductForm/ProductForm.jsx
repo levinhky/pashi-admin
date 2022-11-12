@@ -35,11 +35,9 @@ const ProductForm = () => {
   const [pSizeLQty, setPSizeLQty] = useState("");
   const [pCategory, setPCategory] = useState("");
   const [pThumbnails, setPThumbnails] = useState([]);
-  const [pVariants, setPVariants] = useState([]);
   const [sizeSObject, setSizeSObject] = useState({});
   const [sizeMObject, setSizeMObject] = useState({});
   const [sizeLObject, setSizeLObject] = useState({});
-  const [signUpdate, setSignUpdate] = useState(null);
   const [categories, setCategories] = useState([]);
   const [productInfo, setProductInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
