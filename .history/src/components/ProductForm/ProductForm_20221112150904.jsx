@@ -197,11 +197,6 @@ const ProductForm = () => {
                 placeholder="Enter product price"
                 onChange={(e) => setPPrice(e.target.value)}
               />
-              {errors.price && (
-                <p style={{ color: "red", margin: "5px 0" }}>
-                  {errors.price.message}
-                </p>
-              )}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Quantity</Form.Label>
@@ -212,11 +207,6 @@ const ProductForm = () => {
                 placeholder="Enter product quantity"
                 onChange={(e) => setPQty(e.target.value)}
               />
-              {errors.quantity && (
-                <p style={{ color: "red", margin: "5px 0" }}>
-                  {errors.quantity.message}
-                </p>
-              )}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Category</Form.Label>
@@ -224,7 +214,6 @@ const ProductForm = () => {
                 onChange={(e) => setPCategory(e.target.value)}
                 value={productInfo.categoryId?._id}
                 aria-label="Default select example"
-                name="category"
               >
                 <option value="">-- Please select ---</option>
                 {categories.length > 0 &&
@@ -234,17 +223,11 @@ const ProductForm = () => {
                     </option>
                   ))}
               </Form.Select>
-              {errors.category && (
-                <p style={{ color: "red", margin: "5px 0" }}>
-                  {errors.category.message}
-                </p>
-              )}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Thumbnail</Form.Label>
               <Form.Control
                 type="file"
-                name="image"
                 placeholder="Enter product price"
                 multiple
                 onChange={(e) => handleChangeImage(e)}
@@ -263,11 +246,6 @@ const ProductForm = () => {
                   />
                 ))}
               {isLoading && <div className="img-loading-spinner"></div>}
-              {errors.image && (
-                <p style={{ color: "red", margin: "5px 0" }}>
-                  {errors.image.message}
-                </p>
-              )}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Sizes</Form.Label>
@@ -362,7 +340,7 @@ const ProductForm = () => {
                 </Button>
               </div>
             </Form.Group>
-            <Button variant="primary" type="submit" onClick={handleSave}>
+            <Button variant="primary" type="submit">
               Save
             </Button>
           </Form>

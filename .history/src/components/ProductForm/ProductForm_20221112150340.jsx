@@ -11,11 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const schema = yup.object({
-  name: yup.string().required("Please enter product name"),
-  price: yup.string().required("Please enter price product"),
-  quantity: yup.string().required("Please enter quantity products"),
-  category: yup.string().required("Please select category product"),
-  image: yup.string().required("Please choose image product"),
+  name: yup.string().required("Please enter category name"),
 });
 
 const ProductForm = () => {
@@ -183,40 +179,26 @@ const ProductForm = () => {
                 onChange={(e) => setPName(e.target.value)}
               />
               {errors.name && (
-                <p style={{ color: "red", margin: "5px 0" }}>
-                  {errors.name.message}
-                </p>
+                <p className="text-sm text-red-500">{errors.name.message}</p>
               )}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Price</Form.Label>
               <Form.Control
                 type="text"
-                name="price"
                 defaultValue={productInfo.price || ""}
                 placeholder="Enter product price"
                 onChange={(e) => setPPrice(e.target.value)}
               />
-              {errors.price && (
-                <p style={{ color: "red", margin: "5px 0" }}>
-                  {errors.price.message}
-                </p>
-              )}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Quantity</Form.Label>
               <Form.Control
                 type="text"
-                name="quantity"
                 defaultValue={productInfo.quantity || ""}
                 placeholder="Enter product quantity"
                 onChange={(e) => setPQty(e.target.value)}
               />
-              {errors.quantity && (
-                <p style={{ color: "red", margin: "5px 0" }}>
-                  {errors.quantity.message}
-                </p>
-              )}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Category</Form.Label>
@@ -224,7 +206,6 @@ const ProductForm = () => {
                 onChange={(e) => setPCategory(e.target.value)}
                 value={productInfo.categoryId?._id}
                 aria-label="Default select example"
-                name="category"
               >
                 <option value="">-- Please select ---</option>
                 {categories.length > 0 &&
@@ -234,17 +215,11 @@ const ProductForm = () => {
                     </option>
                   ))}
               </Form.Select>
-              {errors.category && (
-                <p style={{ color: "red", margin: "5px 0" }}>
-                  {errors.category.message}
-                </p>
-              )}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Thumbnail</Form.Label>
               <Form.Control
                 type="file"
-                name="image"
                 placeholder="Enter product price"
                 multiple
                 onChange={(e) => handleChangeImage(e)}
@@ -263,11 +238,6 @@ const ProductForm = () => {
                   />
                 ))}
               {isLoading && <div className="img-loading-spinner"></div>}
-              {errors.image && (
-                <p style={{ color: "red", margin: "5px 0" }}>
-                  {errors.image.message}
-                </p>
-              )}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Sizes</Form.Label>
@@ -362,7 +332,7 @@ const ProductForm = () => {
                 </Button>
               </div>
             </Form.Group>
-            <Button variant="primary" type="submit" onClick={handleSave}>
+            <Button variant="primary" type="submit">
               Save
             </Button>
           </Form>

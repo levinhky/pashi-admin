@@ -48,7 +48,7 @@ const CategoryForm = () => {
                 </p>
               )}
             </Form.Group>
-            <Button variant="primary" type="submit" onClick={handleSave}>
+            <Button variant="primary" type="submit">
               Save
             </Button>
             {/* <button
