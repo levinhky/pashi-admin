@@ -12,7 +12,7 @@ const Category = () => {
 
   useEffect(() => {
     const getCategories = async () => {
-      const data = await axiosClient.get("/api/v2/categories");
+      const data = await axiosClient.get("categories");
       setCategoryList(data);
       setLoading(false);
     };
@@ -28,15 +28,15 @@ const Category = () => {
         <Col>
           <div className="d-flex justify-content-between">
             <h3 className="text-primary">Category Management</h3>
-            <span
-              className="cu-pointer text-warning text-decoration-underline"
-              onClick={() => {
-                handleDrop("/api/v2/categories/drop");
-                setCategoryList([]);
-              }}
-            >
-              Delete All Categories
-            </span>
+            {/*<span*/}
+            {/*  className="cu-pointer text-warning text-decoration-underline"*/}
+            {/*  onClick={() => {*/}
+            {/*    handleDrop("/api/v2/categories/drop");*/}
+            {/*    setCategoryList([]);*/}
+            {/*  }}*/}
+            {/*>*/}
+            {/*  Delete All Categories*/}
+            {/*</span>*/}
           </div>
           <Button className="my-2 float-end" variant="success">
             <Link
@@ -52,21 +52,20 @@ const Category = () => {
                 <tr>
                   <th>#</th>
                   <th>Name</th>
-                  <th>Products</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {categoryList.length > 0 &&
                   categoryList.map((c, i) => (
-                    <tr key={c._id}>
+                    <tr key={c.id}>
                       <td>{i + 1}</td>
-                      <td>{c.categoryName}</td>
-                      <td>{c.products.length} products in this category</td>
+                      <td>{c.name}</td>
                       <td>
                         <Button variant="info">
                           <Link
                             className="text-white text-decoration-none"
-                            to={`/categories/edit/${c._id}`}
+                            to={`/categories/edit/${c.id}`}
                           >
                             Edit
                           </Link>
@@ -74,8 +73,8 @@ const Category = () => {
                         <Button
                           onClick={() => {
                             handleDelete(
-                              "/api/v2/categories/delete",
-                              c._id,
+                              "categories",
+                              c.id,
                               setCategoryList
                             );
                           }}

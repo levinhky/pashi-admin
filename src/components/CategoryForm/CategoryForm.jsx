@@ -22,8 +22,8 @@ const CategoryForm = () => {
 
   useEffect(() => {
     const getCategory = async () => {
-      handleGetOne("/api/v2/categories",categoryId).then((category) => {
-        setCatName(category?.categoryName)
+      handleGetOne("categories",categoryId).then((category) => {
+        setCatName(category?.name)
       })
     }
     if (categoryId) getCategory();
@@ -31,10 +31,10 @@ const CategoryForm = () => {
 
   const handleSave = async () => {
     !categoryId ?
-        await handlePost("/api/v2/categories", { categoryName: catName }).then(
+        await handlePost("categories", { categoryName: catName }).then(
             (res) => setTimeout(() => navigate("/categories"), 1500)
         ) :
-        await handleEdit("/api/v2/categories/update", categoryId, { categoryName: catName }).then(
+        await handleEdit("categories", categoryId, { categoryName: catName }).then(
             (res) => setTimeout(() => navigate("/categories"), 1500)
         );
   };
