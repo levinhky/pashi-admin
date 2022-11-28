@@ -14,6 +14,7 @@ const Category = () => {
     const getCategories = async () => {
       const data = await axiosClient.get("categories");
       setCategoryList(data);
+      console.log(data)
       setLoading(false);
     };
     getCategories();
@@ -58,14 +59,14 @@ const Category = () => {
               <tbody>
                 {categoryList.length > 0 &&
                   categoryList.map((c, i) => (
-                    <tr key={c.id}>
+                    <tr key={c._id}>
                       <td>{i + 1}</td>
                       <td>{c.name}</td>
                       <td>
                         <Button variant="info">
                           <Link
                             className="text-white text-decoration-none"
-                            to={`/categories/edit/${c.id}`}
+                            to={`/categories/edit/${c._id}`}
                           >
                             Edit
                           </Link>
@@ -73,8 +74,8 @@ const Category = () => {
                         <Button
                           onClick={() => {
                             handleDelete(
-                              "categories",
-                              c.id,
+                              "categories/delete",
+                              c._id,
                               setCategoryList
                             );
                           }}

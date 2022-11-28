@@ -60,7 +60,7 @@ const Product = () => {
               <tbody>
                 {productList.length > 0 &&
                   productList.map((p, i) => (
-                    <tr key={p.id}>
+                    <tr key={p._id}>
                       <td>{i + 1}</td>
                       <td className="w-[120px] text-center">
                         <img
@@ -76,7 +76,7 @@ const Product = () => {
                         <Button variant="info">
                           <Link
                             className="text-white text-decoration-none"
-                            to={`/products/edit/${p.id}`}
+                            to={`/products/edit/${p._id}`}
                           >
                             Edit
                           </Link>
@@ -84,8 +84,8 @@ const Product = () => {
                         <Button
                           onClick={() => {
                             handleDelete(
-                              "products/",
-                              p.id,
+                              "products/delete",
+                              p._id,
                               setProductList
                             );
                           }}

@@ -3,7 +3,7 @@ import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
 import {storage} from "../../configs/firebase";
 import axiosClient from "../../configs/axios";
-import {handleEdit, handleGetOne, handlePost} from "../../configs/functions";
+import {handleEdit, handleGetOne, handlePost, slugify} from "../../configs/functions";
 import {useNavigate, useParams} from "react-router-dom";
 import {toastSuccess, toastError, toastWarning} from "../../configs/toasts";
 import {useForm} from "react-hook-form";
@@ -40,7 +40,8 @@ const ProductForm = () => {
     const [sizeLObject, setSizeLObject] = useState({});
     const [categories, setCategories] = useState([]);
     const [productInfo, setProductInfo] = useState({});
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false)
+    const [catName,setCatName] = useState('');
     const navigate = useNavigate();
     const {productId} = useParams();
 
@@ -48,7 +49,6 @@ const ProductForm = () => {
         const getCategories = async () => {
             const categories = await axiosClient.get("categories");
             setCategories(categories);
-            console.log(categories)
         };
         getCategories();
     }, []);
@@ -61,11 +61,11 @@ const ProductForm = () => {
                 setPName(info.name);
                 setPPrice(info.price);
                 setPQty(info.quantity);
-                setPCategory(info.category_id);
+                setPCategory(info?.categoryId._id);
                 setPThumbnails(info.thumbnails);
-                setPSizeS(info?.sizes[0]?.name);
-                setPSizeM(info?.sizes[1]?.name);
-                setPSizeL(info?.sizes[2]?.name);
+                setPSizeS(info?.sizes[0]?.size);
+                setPSizeM(info?.sizes[1]?.size);
+                setPSizeL(info?.sizes[2]?.size);
                 setPSizeSQty(info?.sizes[0]?.quantity);
                 setPSizeMQty(info?.sizes[1]?.quantity);
                 setPSizeLQty(info?.sizes[2]?.quantity);
@@ -73,7 +73,7 @@ const ProductForm = () => {
                 setSizeMObject(info?.sizes[1]);
                 setSizeLObject(info?.sizes[2]);
                 setIsLoading(false);
-                console.log(info)
+                console.log(info.categoryId._id)
             });
         };
         if (productId) getProductInfo();
@@ -142,25 +142,15 @@ const ProductForm = () => {
             );
         }
     };
-
+    console.log(productInfo)
     const handleSave = async () => {
-        let category_slug = '';
-        let category_id = +pCategory;
-        if (category_id === 1) {
-            category_slug = 'Đầm'
-        } else if (category_id === 2) {
-            category_slug = 'Áo'
-        } else if (category_id === 3) {
-            category_slug = 'Váy'
-        } else {
-            category_slug = 'Quần'
-        }
         const saveData = {
             name: pName,
-            price: pPrice,
+            price: +pPrice,
             quantity: +pQty,
-            category_id: category_id,
-            category_slug,
+            categoryId: pCategory,
+            category_slug: slugify(catName),
+            slug:slugify(pName),
             thumbnails: pThumbnails,
             sizes: [sizeSObject, sizeMObject, sizeLObject],
         };
@@ -168,7 +158,7 @@ const ProductForm = () => {
           ? handlePost("products", saveData).then((res) =>
               setTimeout(() => navigate("/products"), 1500)
             )
-          : handleEdit("products", productId, saveData).then((res) =>
+          : handleEdit("products/update", productId, saveData).then((res) =>
               setTimeout(() => navigate("/products"), 1500)
             );
         console.log(saveData);
@@ -233,15 +223,18 @@ const ProductForm = () => {
                         <Form.Group className="mb-3">
                             <Form.Label>Category</Form.Label>
                             <Form.Select
-                                onChange={(e) => setPCategory(e.target.value)}
-                                value={productInfo.category_id}
+                                onChange={(e) => {
+                                    setPCategory(e.target.value)
+                                    setCatName(e.target.selectedOptions[0].getAttribute('catName'))
+                                }}
+                                value={productInfo?.categoryId?._id}
                                 aria-label="Default select example"
                                 name="category"
                             >
                                 <option value="">-- Please select ---</option>
                                 {categories.length > 0 &&
                                     categories.map((cat) => (
-                                        <option key={cat.id} value={cat.id}>
+                                        <option catName={cat.name} key={cat._id} value={cat._id}>
                                             {cat.name}
                                         </option>
                                     ))}
@@ -289,7 +282,7 @@ const ProductForm = () => {
                                     id={"S"}
                                     label={"S"}
                                     value="S"
-                                    defaultChecked={sizeSObject?.name}
+                                    defaultChecked={sizeSObject?.size}
                                     onChange={(e) => setPSizeS(e.target.value)}
                                 />
                                 <Form.Control
@@ -304,8 +297,8 @@ const ProductForm = () => {
                                     className="ms-3"
                                     onClick={() => {
                                         setSizeSObject({
-                                            name: pSizeS,
-                                            quantity: pSizeSQty,
+                                            size: pSizeS,
+                                            quantity: +pSizeSQty,
                                         });
                                         handleUpdate();
                                     }}
@@ -319,7 +312,7 @@ const ProductForm = () => {
                                     id={"M"}
                                     label={"M"}
                                     value="M"
-                                    defaultChecked={sizeMObject?.name}
+                                    defaultChecked={sizeMObject?.size}
                                     onChange={(e) => setPSizeM(e.target.value)}
                                 />
                                 <Form.Control
@@ -334,8 +327,8 @@ const ProductForm = () => {
                                     className="ms-3"
                                     onClick={() => {
                                         setSizeMObject({
-                                            name: pSizeM,
-                                            quantity: pSizeMQty,
+                                            size: pSizeM,
+                                            quantity: +pSizeMQty,
                                         });
                                         handleUpdate();
                                     }}
@@ -349,7 +342,7 @@ const ProductForm = () => {
                                     id={"L"}
                                     label={"L"}
                                     value="L"
-                                    defaultChecked={sizeLObject?.name}
+                                    defaultChecked={sizeLObject?.size}
                                     onChange={(e) => setPSizeL(e.target.value)}
                                 />
                                 <Form.Control
@@ -364,8 +357,8 @@ const ProductForm = () => {
                                     className="ms-3"
                                     onClick={() => {
                                         setSizeLObject({
-                                            name: pSizeL,
-                                            quantity: pSizeLQty,
+                                            size: pSizeL,
+                                            quantity: +pSizeLQty,
                                         });
                                         handleUpdate();
                                     }}

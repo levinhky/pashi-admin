@@ -31,10 +31,10 @@ const CategoryForm = () => {
 
   const handleSave = async () => {
     !categoryId ?
-        await handlePost("categories", { categoryName: catName }).then(
+        await handlePost("categories", { name: catName }).then(
             (res) => setTimeout(() => navigate("/categories"), 1500)
         ) :
-        await handleEdit("categories", categoryId, { categoryName: catName }).then(
+        await handleEdit("categories/update", categoryId, { name: catName }).then(
             (res) => setTimeout(() => navigate("/categories"), 1500)
         );
   };

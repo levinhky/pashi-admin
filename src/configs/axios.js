@@ -1,8 +1,9 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-    // baseURL: 'https://ecommerce-public-api.herokuapp.com',
-    baseURL: 'https://json-api-public.herokuapp.com/api/',
+    baseURL: 'https://ecommerce-public-api.herokuapp.com/api/v2/',
+    // baseURL: 'https://json-api-public.herokuapp.com/api/',
+    // baseURL: 'http://localhost:4000/',
     headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin' : '*',
