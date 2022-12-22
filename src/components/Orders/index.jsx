@@ -51,10 +51,11 @@ const OrderList = () => {
                             <tr>
                                 <th>#</th>
                                 <th>User</th>
-                                <th>Product Name</th>
-                                <th>SKU</th>
+                                <th>Email</th>
+                                <th>Shipping</th>
                                 <th>Delivery Method</th>
                                 <th>Status</th>
+                                <th>Created At</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -64,17 +65,18 @@ const OrderList = () => {
                                     <tr key={c._id}>
                                         <td>{i + 1}</td>
                                         <td>{c.fullName}</td>
-                                        <td>{c.name}</td>
-                                        <td>{c.sku}</td>
+                                        <td>{c.email}</td>
+                                        <td>{c.shipping}</td>
                                         <td>{c.deliveryMethod}</td>
                                         <td>{c.status}</td>
+                                        <td>{c.createdAt.substring(0,10)}</td>
                                         <td>
                                             <Button variant="info">
                                                 <Link
                                                     className="text-white text-decoration-none"
                                                     to={`/orders/update/${c._id}`}
                                                 >
-                                                    Edit
+                                                    View
                                                 </Link>
                                             </Button>{" "}
                                             <Button

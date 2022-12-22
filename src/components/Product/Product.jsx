@@ -14,7 +14,6 @@ const Product = () => {
       const productList = await axiosClient.get("/products");
       setProductList(productList);
       setLoading(false);
-      console.log(productList)
     };
 
     getProductList();

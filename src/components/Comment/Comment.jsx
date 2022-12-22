@@ -1,24 +1,107 @@
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
-
+import {Button, Col, Container, Form, Row, Table} from "react-bootstrap";
+import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
+import {handleDelete} from "../../configs/functions";
+import Loading from "../Loading/Loading";
+import axiosClient from "../../configs/axios";
 const Comment = () => {
+
+    const [comments, setComments] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const getCategories = async () => {
+            const data = await axiosClient.get("comments");
+            setComments(data);
+            console.log(data)
+            setLoading(false);
+        };
+        getCategories();
+
+    }, [])
+
     return (
-    <div>
-        <Carousel>
-            <div>
-                <img src="https://product.hstatic.net/1000370235/product/z3733404476863_7e275dd6543a97bf749afe1bb2388233_958df4b2b6924c7e8498de2eb72e685b_grande.jpg" />
-            </div>
-            <div>
-                <img src="https://product.hstatic.net/1000370235/product/z3733404438658_38f684f7557d33335564cfa27c5e9982_d8354b4432fa4fefbb6b108621246afa_grande.jpg" />
-            </div>
-            <div>
-                <img src="https://product.hstatic.net/1000370235/product/bf2d335d-5fd8-4403-a506-20aeea7c6818_aec9e80d0d3240ec9716e664bccdbdba_grande.jpg" />
-            </div>
-            <div>
-                <img src="https://product.hstatic.net/1000370235/product/bf2d335d-5fd8-4403-a506-20aeea7c6818_aec9e80d0d3240ec9716e664bccdbdba_grande.jpg" />
-            </div>
-        </Carousel>
-    </div>
+        <Container>
+            {loading && <Loading />}
+            <Row>
+                <Col>
+                    <div className="d-flex justify-content-between">
+                        <h3 className="text-primary">Comment Management</h3>
+                        {/*<span*/}
+                        {/*  className="cu-pointer text-warning text-decoration-underline"*/}
+                        {/*  onClick={() => {*/}
+                        {/*    handleDrop("/api/v2/categories/drop");*/}
+                        {/*    setComments([]);*/}
+                        {/*  }}*/}
+                        {/*>*/}
+                        {/*  Delete All Categories*/}
+                        {/*</span>*/}
+                    </div>
+                    {/*<Button className="my-2 float-end" variant="success">*/}
+                    {/*    <Link*/}
+                    {/*        to="/categories/add"*/}
+                    {/*        className="text-decoration-none text-light"*/}
+                    {/*    >*/}
+                    {/*        Add new comment*/}
+                    {/*    </Link>*/}
+                    {/*</Button>{" "}*/}
+                    {comments.length > 0 ? (
+                        <Table striped bordered hover size="sm">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>User</th>
+                                <th>Product</th>
+                                <th>Content</th>
+                                <th>Display</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {comments.length > 0 &&
+                                comments.map((c, i) => (
+                                    <tr key={c._id}>
+                                        <td>{i + 1}</td>
+                                        <td>{c.displayName}</td>
+                                        <td>{c.productName}</td>
+                                        <td>{c.commentContent}</td>
+                                        <td>{c.display ? 'Hiện' : 'Ẩn'}</td>
+                                        <td>{c.createdAt.slice(0,10)}</td>
+                                        <td>{c.updatedAt.slice(0,10)}</td>
+                                        <td>
+                                            <Button variant="info">
+                                                <Link
+                                                    className="text-white text-decoration-none"
+                                                    to={`/comments/edit/${c._id}`}
+                                                >
+                                                    Edit
+                                                </Link>
+                                            </Button>{" "}
+                                            <Button
+                                                onClick={() => {
+                                                    handleDelete(
+                                                        "comments/delete",
+                                                        c._id,
+                                                        setComments
+                                                    );
+                                                }}
+                                                variant="danger"
+                                            >
+                                                Delete
+                                            </Button>{" "}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </Table>
+                    ) : (
+                        <h4 className="mt-5 text-center"> There are no comments!</h4>
+                    )}
+                </Col>
+            </Row>
+        </Container>
     );
 }
 

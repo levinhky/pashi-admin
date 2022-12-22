@@ -6,6 +6,7 @@ import CategoryForm from "../components/CategoryForm/CategoryForm";
 import Comment from "../components/Comment/Comment";
 import OrderList from "../components/Orders";
 import OrderForm from "../components/Orders/OrderForm";
+import CommentForm from "../components/Comment/CommentForm";
 const ProductForm = React.lazy(() => import('../components/ProductForm/ProductForm'));
 
 const routes = [
@@ -19,6 +20,7 @@ const routes = [
     { path:'/comments', element: <Comment />, layout:<Comment /> },
     { path:'/orders', element: <OrderList />, layout:<OrderList /> },
     { path:'/orders/update/:orderId', element: <OrderForm />, layout:<OrderForm /> },
+    { path:'/comments/edit/:commentId', element: <CommentForm />, layout:<CommentForm /> },
 ];
 
 export default  routes;

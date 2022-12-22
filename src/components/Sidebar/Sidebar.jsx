@@ -52,17 +52,17 @@ const Sidebar = () => {
             <span className="links_name">Order</span>
           </Link>
         </li>
-        <li>
-          <Link to="/">
-            <i className="bx bx-cog"></i>
-            <span className="links_name">Setting</span>
-          </Link>
-        </li>
+        {/*<li>*/}
+        {/*  <Link to="/">*/}
+        {/*    <i className="bx bx-cog"></i>*/}
+        {/*    <span className="links_name">Setting</span>*/}
+        {/*  </Link>*/}
+        {/*</li>*/}
         <li className="log_out">
-          <Link to="/">
+          <a href="/">
             <i className="bx bx-log-out"></i>
             <span className="links_name">Log out</span>
-          </Link>
+          </a>
         </li>
       </ul>
     </div>
