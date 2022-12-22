@@ -21,16 +21,9 @@ const OrderForm = () => {
                 setOrderDetail(order);
                 setStatus(order.status)
                 setProducts(order.products);
-                console.log(order)
-                if (order.status === 'Chờ xử lý') {
-                    setRange(1)
-                } else if (order.status === 'Đang giao hàng') {
-                    setRange(2)
-                } else if (order.status === 'Giao hàng thành công') {
-                    setRange(3)
-                } else{
-                    setRange(4)
-                }
+                order.status === 'Chờ xử lý' ? setRange(1) :
+                    order.status === 'Đang giao hàng' ? setRange(2) :
+                        order.status === 'Giao hàng thành công' ? setRange(3) : setRange(4)
             })
         }
         if (orderId) getOrder();
@@ -102,7 +95,7 @@ const OrderForm = () => {
                             </Col>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exxx">
-                            <Form.Label column sm="2"  className={'fs-5'}>
+                            <Form.Label column sm="2" className={'fs-5'}>
                                 Items Ordered
                             </Form.Label>
                             <Table striped bordered hover className={'mb-4'}>
@@ -117,19 +110,19 @@ const OrderForm = () => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {products.map((product,index) => (
+                                {products.map((product, index) => (
                                     <tr key={product._id}>
-                                        <td>{index+1}</td>
+                                        <td>{index + 1}</td>
                                         <td>{product.name}</td>
                                         <td>{product.sku}</td>
                                         <td>{vnd(product.price)}</td>
                                         <td>{product.quantity}</td>
-                                        <td>{product.sizes.map((size,index) => {
+                                        <td>{product.sizes.map((size, index) => {
                                             return (
-                                               <div key={size._id}>
-                                                   {index+1}. Size: <span>{size.size}</span> -
-                                                  Qty: <span>{size.quantity}</span>
-                                               </div>
+                                                <div key={size._id}>
+                                                    {index + 1}. Size: <span>{size.size}</span> -
+                                                    Qty: <span>{size.quantity}</span>
+                                                </div>
                                             )
                                         })}</td>
                                     </tr>
@@ -138,7 +131,7 @@ const OrderForm = () => {
                             </Table>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" controlId="exxx">
-                            <Form.Label column sm="2"  className={'fs-5'}>Status</Form.Label>
+                            <Form.Label column sm="2" className={'fs-5'}>Status</Form.Label>
                             <Form.Select
                                 aria-label="Default select example"
                                 name="category"

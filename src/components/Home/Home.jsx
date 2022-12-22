@@ -34,6 +34,14 @@ const Home = () => {
         return total;
     }
 
+    const countCancled = () => {
+        let cancled = 0;
+        recentSales.map((item,i) => {
+            if (item.status === 'Đã hủy') cancled += 1;
+        })
+        return cancled;
+    }
+
     // useEffect(() => {
     //   const tabs = document.querySelectorAll('.kyle');
     //   tabs.forEach(tab => {
@@ -73,7 +81,7 @@ const Home = () => {
                 <div className="box">
                     <div className="right-side">
                         <div className="box-topic">Total Profit</div>
-                        <div className="number" style={{fontSize: "28px"}}>{vnd(countTotal() * (1 + 10 / 100))}</div>
+                        <div className="number" style={{fontSize: "28px"}}>{vnd(countTotal() + (countTotal() * 10/100))}</div>
                         {/*<div className="indicator">*/}
                         {/*  <i className='bx bx-up-arrow-alt'></i>*/}
                         {/*  <span className="text">Up from yesterday</span>*/}
@@ -84,7 +92,9 @@ const Home = () => {
                 <div className="box">
                     <div className="right-side">
                         <div className="box-topic">Total Return</div>
-                        <div className="number">0</div>
+                        <div className="number">
+                            {countCancled()}
+                        </div>
                         {/*<div className="indicator">*/}
                         {/*  <i className='bx bx-down-arrow-alt down'></i>*/}
                         {/*  <span className="text">Down From Today</span>*/}
@@ -186,13 +196,12 @@ const Home = () => {
                     <ul className="top-sales-details">
                         {topSelling.map(order => {
                             let quantity = 0;
-                            return order.products.map(item => {
-                                quantity += item.quantity
+                                return order.products.map(item => {
                                 return <li key={item._id}>
-                                    <a href="yen">
+                                    <span>
                                         <span className="product">{item.name}</span>
-                                    </a>
-                                    <span className="price">Sold: {quantity}</span>
+                                    </span>
+                                    <span className="price">Sold: {quantity || item.quantity}</span>
                                 </li>
                             })
                         })}

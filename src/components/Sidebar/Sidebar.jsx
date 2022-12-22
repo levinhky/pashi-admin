@@ -16,7 +16,9 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="logo-details">
-        <i className="bx bx-code-alt"></i>
+        <Link className="logo_name mt-3" to="/">
+          <i className="bx bx-code-alt"></i>
+        </Link>
         <Link className="logo_name" to="/">
           Pashi
         </Link>
