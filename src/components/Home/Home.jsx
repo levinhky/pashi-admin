@@ -192,16 +192,15 @@ const Home = () => {
                     {/*</div>*/}
                 </div>
                 <div className="top-sales box">
-                    <div className="title">Top Seling Product</div>
+                    <div className="title">Recent Sales Product</div>
                     <ul className="top-sales-details">
                         {topSelling.map(order => {
-                            let quantity = 0;
                                 return order.products.map(item => {
                                 return <li key={item._id}>
                                     <span>
                                         <span className="product">{item.name}</span>
                                     </span>
-                                    <span className="price">Sold: {quantity || item.quantity}</span>
+                                    <span className="price">Sold: {item.quantity}</span>
                                 </li>
                             })
                         })}

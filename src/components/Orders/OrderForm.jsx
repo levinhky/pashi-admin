@@ -130,6 +130,21 @@ const OrderForm = () => {
                                 </tbody>
                             </Table>
                         </Form.Group>
+                        {orderDetail.notes ?  <Form.Group as={Row} className="mb-3" controlId="exxx">
+                            <Form.Label column sm="2" className={'fs-5'}>
+                                Notes
+                            </Form.Label>
+                            <Col sm="10" className={'fs-4'}>
+                                {orderDetail.notes}
+                            </Col>
+                        </Form.Group> : <Form.Group as={Row} className="mb-3" controlId="exxx">
+                            <Form.Label column sm="2" className={'fs-5'}>
+                                Notes
+                            </Form.Label>
+                            <Col sm="10" className={'fs-4'}>
+                                None
+                            </Col>
+                        </Form.Group> }
                         <Form.Group as={Row} className="mb-3" controlId="exxx">
                             <Form.Label column sm="2" className={'fs-5'}>Status</Form.Label>
                             <Form.Select

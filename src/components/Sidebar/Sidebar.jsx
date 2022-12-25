@@ -61,7 +61,7 @@ const Sidebar = () => {
         {/*  </Link>*/}
         {/*</li>*/}
         <li className="log_out">
-          <a href="/">
+          <a href="/" onClick={() => sessionStorage.removeItem('isLogin')}>
             <i className="bx bx-log-out"></i>
             <span className="links_name">Log out</span>
           </a>

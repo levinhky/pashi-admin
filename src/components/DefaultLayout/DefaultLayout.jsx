@@ -3,12 +3,14 @@ import Sidebar from "../Sidebar/Sidebar";
 import Navbar from "../Navbar/Navbar";
 import axiosClient from "../../configs/axios";
 import {toastError} from "../../configs/toasts";
+import {useNavigate} from "react-router-dom";
 
 const DefaultLayout = ({children}) => {
-    const [isLogin, setIsLogin] = React.useState(false);
     const [username, setUserName] = React.useState('');
     const [password, setPassword] = React.useState('');
-
+    const isLogin = sessionStorage.getItem('isLogin');
+    const navigate = useNavigate();
+    console.log(isLogin)
     React.useEffect(() => {
         window.scroll({
             top: 0,
@@ -25,7 +27,8 @@ const DefaultLayout = ({children}) => {
         const check = async () => {
             try {
                 const user = await axiosClient.post('auth/login', info);
-                if (user._id) setIsLogin(true);
+                if (user._id) sessionStorage.setItem('isLogin', true);
+                navigate('/');
             } catch (e) {
                 toastError(e.response.data)
             }
@@ -36,7 +39,7 @@ const DefaultLayout = ({children}) => {
 
     return (
         <>
-            {!isLogin ? <div className="main">
+            {isLogin === null ? <div className="main">
 
                     <form action="" method="POST" className="form" id="form-1">
                         <h3 className="heading">Đăng nhập</h3>

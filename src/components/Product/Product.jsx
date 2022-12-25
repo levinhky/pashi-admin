@@ -12,7 +12,7 @@ const Product = () => {
   useEffect(() => {
     const getProductList = async () => {
       const productList = await axiosClient.get("/products");
-      setProductList(productList);
+      setProductList(productList.products);
       setLoading(false);
     };
 

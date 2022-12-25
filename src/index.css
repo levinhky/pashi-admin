@@ -199,7 +199,7 @@ nav .profile-details i {
 }
 .home-section .home-content {
   position: relative;
-  padding-top: 104px;
+  padding-top: 60px;
 }
 .home-content .overview-boxes {
   display: flex;
@@ -214,6 +214,7 @@ nav .profile-details i {
   align-items: center;
   justify-content: center;
   width: calc(100% / 4 - 15px);
+  height: 120px;
   background: #fff;
   padding: 15px 14px;
   border-radius: 12px;
