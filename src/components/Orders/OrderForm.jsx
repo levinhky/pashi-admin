@@ -40,7 +40,7 @@ const OrderForm = () => {
             <Row>
                 <Col>
                     <Form
-                        className="p-4 mb-5 bg-white border rounded shadow-sm"
+                        className="p-4 mb-5 bg-white border rounded shadow-sm mt-5"
                     >
                         <h3 className="mb-3">
                             {!orderId ? 'Create order' : `Edit order - ${orderId}`}

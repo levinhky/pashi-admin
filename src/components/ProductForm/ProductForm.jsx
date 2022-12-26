@@ -169,7 +169,7 @@ const ProductForm = () => {
             <Row>
                 <Col>
                     <Form
-                        className="p-4 mb-5 bg-white border rounded shadow-sm "
+                        className="p-4 mb-5 bg-white border rounded shadow-sm mt-5"
                         onSubmit={handleSubmit(handleSave)}
                     >
                         <h3 className="mb-3">

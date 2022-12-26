@@ -39,7 +39,7 @@ const CommentForm = () => {
             <Row>
                 <Col>
                     <Form
-                        className="p-4 mb-5 bg-white border rounded shadow-sm"
+                        className="p-4 mb-5 bg-white border rounded shadow-sm mt-5"
                     >
                         <h3 className="mb-3">
                             {!commentId ? 'Create comment' : `Edit comment`}
