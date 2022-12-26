@@ -29,6 +29,10 @@ code {
   cursor: pointer;
 }
 
+.andi {
+  display: none !important;
+}
+
 .sidebar {
   position: fixed;
   height: 100%;

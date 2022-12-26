@@ -1,4 +1,4 @@
-import { Button, Col, Container, Form, Row, Table } from "react-bootstrap";
+import {Button, Col, Container, Form, InputGroup, Row, Table} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axiosClient from "../../configs/axios";
@@ -8,6 +8,7 @@ import Loading from "../Loading/Loading";
 const Product = () => {
   const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     const getProductList = async () => {
@@ -24,26 +25,34 @@ const Product = () => {
       {loading && <Loading />}
       <Row>
         <Col>
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between mt-5">
             <h3 className="text-primary">Product Management</h3>
-            {/*<span*/}
-            {/*  className="cu-pointer text-warning text-decoration-underline"*/}
-            {/*  onClick={() => {*/}
-            {/*    handleDrop("/api/v2/products/drop");*/}
-            {/*    setProductList([]);*/}
-            {/*  }}*/}
-            {/*>*/}
-            {/*  Delete All Products*/}
-            {/*</span>*/}
           </div>
-          <Button className="my-2 float-end" variant="success">
-            <Link
-              to="/products/add"
-              className="text-decoration-none text-light"
-            >
-              Add new product
-            </Link>
-          </Button>{" "}
+       <div className={'d-flex justify-content-between'}>
+         <InputGroup size="sm" className="mb-3 w-50">
+           <InputGroup.Text id="inputGroup-sizing-sm">Search</InputGroup.Text>
+           <Form.Control
+               aria-label="Small"
+               aria-describedby="inputGroup-sizing-sm"
+               onChange={(e) => {
+                 setSearch(e.target.value)
+                 const value = search.trim().toLowerCase();
+                 document.querySelectorAll('#hihi').forEach(item => {
+                     if (value === '') item.classList.remove('andi');
+                     !item.innerText.toLowerCase().includes(value) ? item.classList.add('andi') : item.classList.remove('andi');
+                 })
+               }}
+           />
+         </InputGroup>
+         <Button className="my-2 float-end" variant="success">
+           <Link
+               to="/products/add"
+               className="text-decoration-none text-light"
+           >
+             Add new product
+           </Link>
+         </Button>
+       </div>
           {productList.length > 0 ? (
             <Table striped bordered hover size="sm">
               <thead>
@@ -59,7 +68,7 @@ const Product = () => {
               <tbody>
                 {productList.length > 0 &&
                   productList.map((p, i) => (
-                    <tr key={p._id}>
+                    <tr key={p._id} id={'hihi'}>
                       <td>{i + 1}</td>
                       <td className="w-[120px] text-center">
                         <img

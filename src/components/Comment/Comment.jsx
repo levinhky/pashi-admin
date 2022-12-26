@@ -1,4 +1,4 @@
-import {Button, Col, Container, Form, Row, Table} from "react-bootstrap";
+import {Button, Col, Container, Form, InputGroup, Row, Table} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {handleDelete} from "../../configs/functions";
@@ -8,6 +8,7 @@ const Comment = () => {
 
     const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [search, setSearch] = useState('');
 
     useEffect(() => {
         const getCategories = async () => {
@@ -25,26 +26,24 @@ const Comment = () => {
             {loading && <Loading />}
             <Row>
                 <Col>
-                    <div className="d-flex justify-content-between">
+                    <div className="d-flex justify-content-between mt-5">
                         <h3 className="text-primary">Comment Management</h3>
-                        {/*<span*/}
-                        {/*  className="cu-pointer text-warning text-decoration-underline"*/}
-                        {/*  onClick={() => {*/}
-                        {/*    handleDrop("/api/v2/categories/drop");*/}
-                        {/*    setComments([]);*/}
-                        {/*  }}*/}
-                        {/*>*/}
-                        {/*  Delete All Categories*/}
-                        {/*</span>*/}
                     </div>
-                    {/*<Button className="my-2 float-end" variant="success">*/}
-                    {/*    <Link*/}
-                    {/*        to="/categories/add"*/}
-                    {/*        className="text-decoration-none text-light"*/}
-                    {/*    >*/}
-                    {/*        Add new comment*/}
-                    {/*    </Link>*/}
-                    {/*</Button>{" "}*/}
+                    <InputGroup size="sm" className="mb-3 w-50">
+                        <InputGroup.Text id="inputGroup-sizing-sm">Search</InputGroup.Text>
+                        <Form.Control
+                            aria-label="Small"
+                            aria-describedby="inputGroup-sizing-sm"
+                            onChange={(e) => {
+                                setSearch(e.target.value)
+                                const value = search.trim().toLowerCase();
+                                document.querySelectorAll('#hihi').forEach(item => {
+                                    if (value === '') item.classList.remove('andi');
+                                    !item.innerText.toLowerCase().includes(value) ? item.classList.add('andi') : item.classList.remove('andi');
+                                })
+                            }}
+                        />
+                    </InputGroup>
                     {comments.length > 0 ? (
                         <Table striped bordered hover size="sm">
                             <thead>
@@ -62,7 +61,7 @@ const Comment = () => {
                             <tbody>
                             {comments.length > 0 &&
                                 comments.map((c, i) => (
-                                    <tr key={c._id}>
+                                    <tr key={c._id} id={'hihi'}>
                                         <td>{i + 1}</td>
                                         <td>{c.displayName}</td>
                                         <td>{c.productName}</td>

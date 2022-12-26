@@ -1,7 +1,8 @@
-import {Col, Container, Form, Row} from "react-bootstrap";
+import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {handleGetOne} from "../../configs/functions";
+import {handleEdit, handleGetOne} from "../../configs/functions";
+import {toastError} from "../../configs/toasts";
 
 const CommentForm = () => {
     const [commentContent, setCommentContent] = useState("");
@@ -18,11 +19,20 @@ const CommentForm = () => {
                 setDisplay(comment?.display);
                 setCommentDetail(comment);
                 setCreatedAt(comment.createdAt);
-                console.log(comment)
             })
         }
         if (commentId) getComment();
-    }, [commentId])
+    }, [commentId]);
+
+    const handleSave = async () => {
+        if (!display) {
+            toastError('Please select valid value');
+        } else {
+            handleEdit("comments/update", commentId, { display: display}).then((res) =>
+                setTimeout(() => navigate("/comments"), 1500)
+            );
+        }
+    }
 
     return (
         <Container>
@@ -66,6 +76,7 @@ const CommentForm = () => {
                                 name="status"
                                 className={'w-25'}
                                 value={display}
+                                onChange={(e) => setDisplay(e.target.value)}
                             >
                                 <option value="">-- Please select ---</option>
                                 <option value={true}>Hiện</option>
@@ -80,9 +91,9 @@ const CommentForm = () => {
                                 {createdAt.slice(0, 10)}
                             </Col>
                         </Form.Group>
-                        {/*<Button variant="primary" type="submit" onClick={handleSave}>*/}
-                        {/*    Save*/}
-                        {/*</Button>*/}
+                        <Button variant="primary" type="button" onClick={handleSave}>
+                            Save
+                        </Button>
                     </Form>
                 </Col>
             </Row>

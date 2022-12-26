@@ -227,7 +227,7 @@ const ProductForm = () => {
                                     setPCategory(e.target.value)
                                     setCatName(e.target.selectedOptions[0].getAttribute('catName'))
                                 }}
-                                value={productInfo?.categoryId?._id}
+                                value={pCategory}
                                 aria-label="Default select example"
                                 name="category"
                             >
